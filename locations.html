@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Locations - Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../client/styles.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .store-image-thumb {
+            width: 80px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #4f46e5;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://res.cloudinary.com/dmbqrwb7c/image/upload/v1753655054/car_banner_wj4rwc.jpg=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+    </style>
+</head>
+<body class="flex min-h-screen bg-gray-100">
+    <!-- Sidebar Navigation -->
+   <aside class="w-64 bg-gray-800 text-white p-6 flex flex-col hidden md:flex">
+        <div class="text-2xl font-bold mb-8 text-center">Rental Admin</div>
+        <nav>
+            <ul>
+                <li class="mb-4">
+                    <a href="admin.html" class="flex items-center p-3 rounded-lg bg-gray-700 text-white transition duration-150 ease-in-out">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="car-information.html" class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition duration-150 ease-in-out">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 2v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Cars
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="bookings.html" class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition duration-150 ease-in-out">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Bookings
+                    </a>
+                </li>
+                 <li class="mb-4">
+                    <a href="locations.html" class="flex items-center p-3 rounded-lg bg-gray-700 text-white transition duration-150 ease-in-out">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Store Locations
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="home.html" class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition duration-150 ease-in-out">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        Client View
+                    </a>
+                </li>
+
+                     <!-- Administrators -->
+                <li class="mb-4">
+                    <a href="registered-admins.html" class="flex items-center p-3 rounded-lg hover:bg-gray-700 transition duration-150 ease-in-out">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>      
+                        Administrators
+                    </a>                    
+                </li>
+
+            </ul>
+        </nav>
+        <div class="mt-auto pt-6 border-t border-gray-700">
+            <a href="../client/index.html" class="flex items-center p-3 rounded-lg hover:bg-gray-700 text-red-400 hover:text-red-300 transition duration-150 ease-in-out">
+                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-6 md:p-10">
+        <header class="flex items-center justify-between mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Pickup Locations</h1>
+            <button class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </header>
+
+        <!-- Store Locations Table -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 id="storeListingCount" class="text-xl font-semibold text-gray-900 mb-4">All Pickup Locations</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">City</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Constituency</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone Number</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storeTableBody" class="bg-white divide-y divide-gray-200">
+                        <tr id="loadingStoresRow">
+                            <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                <span class="loading-spinner"></span> Loading stores...
+                            </td>
+                        </tr>
+                        <tr id="noStoresFoundRow" class="hidden">
+                            <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">No store locations found. Add some from the "Add Store Location" page.</td>
+                        </tr>
+                        <tr id="errorLoadingStoresRow" class="hidden">
+                            <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-red-500 text-center">Error loading stores. Please ensure the backend server is running.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center">
+            <a href="admin.html" class="text-indigo-600 hover:text-indigo-700 font-medium">Back to Dashboard</a>
+        </div>
+    </main>
+
+    <script>
+        async function renderStoreTable() {
+            const storeTableBody = document.getElementById('storeTableBody');
+            const loadingStoresRow = document.getElementById('loadingStoresRow');
+            const noStoresFoundRow = document.getElementById('noStoresFoundRow');
+            const errorLoadingStoresRow = document.getElementById('errorLoadingStoresRow');
+            const storeListingCountHeader = document.getElementById('storeListingCount');
+
+            storeTableBody.innerHTML = '';
+            loadingStoresRow.classList.remove('hidden');
+            noStoresFoundRow.classList.add('hidden');
+            errorLoadingStoresRow.classList.add('hidden');
+            storeTableBody.appendChild(loadingStoresRow);
+            storeListingCountHeader.textContent = 'All Pickup Locations';
+
+            try {
+                const response = await fetch('http://localhost:3000/api/stores');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const stores = await response.json();
+
+                loadingStoresRow.classList.add('hidden');
+                storeListingCountHeader.textContent = `All Pickup Locations (No. of Locations: ${stores.length})`;
+
+                if (stores.length === 0) {
+                    noStoresFoundRow.classList.remove('hidden');
+                    storeTableBody.appendChild(noStoresFoundRow);
+                } else {
+                    stores.forEach(store => {
+                        const row = `
+                            <tr data-id="${store._id}">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <img src="${store.imageUrl}" alt="Store Image" class="store-image-thumb" onerror="this.onerror=null;this.src='https://placehold.co/80x50/cccccc/333333?text=N/A';">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${store.address}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${store.city}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${store.constituency}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${store.email}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${store.phoneNumber}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                    <button data-id="${store._id}" class="edit-store-btn bg-yellow-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-yellow-600 transition duration-150 mr-2">Edit</button>
+                                    <button data-id="${store._id}" class="delete-store-btn bg-red-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-red-600 transition duration-150">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+                        storeTableBody.innerHTML += row;
+                    });
+
+                    document.querySelectorAll('.delete-store-btn').forEach(button => {
+                        button.addEventListener('click', handleDeleteStore);
+                    });
+                    document.querySelectorAll('.edit-store-btn').forEach(button => {
+                        button.addEventListener('click', handleEditStore);
+                    });
+                }
+            } catch (error) {
+                console.error('Error rendering store table:', error);
+                loadingStoresRow.classList.add('hidden');
+                errorLoadingStoresRow.classList.remove('hidden');
+                errorLoadingStoresRow.textContent = `Error loading stores: ${error.message}. Please ensure the backend server is running.`;
+                storeTableBody.appendChild(errorLoadingStoresRow);
+                storeListingCountHeader.textContent = 'All Pickup Locations (Error Loading)';
+            }
+        }
+
+        async function handleDeleteStore(event) {
+            const storeIdToDelete = event.target.dataset.id;
+            if (confirm('Are you sure you want to delete this store location?')) {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/stores/${storeIdToDelete}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Failed to delete store on server.');
+                    }
+
+                    console.log(`Store with ID ${storeIdToDelete} deleted from backend.`);
+                    renderStoreTable();
+                } catch (error) {
+                    console.error('Error deleting store:', error);
+                    alert(`Error deleting store: ${error.message}`);
+                }
+            }
+        }
+
+        // Modal for editing store info
+        function createEditStoreModal(store) {
+            // Remove existing modal if present
+            const existing = document.getElementById('editStoreModal');
+            if (existing) existing.remove();
+            const modal = document.createElement('div');
+            modal.id = 'editStoreModal';
+            modal.className = 'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg relative">
+                    <button id="closeEditStoreModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+                    <h2 class="text-2xl font-bold mb-6">Edit Store Location</h2>
+                    <form id="editStoreForm" class="space-y-4">
+                        <input type="hidden" id="editStoreId" value="${store._id}">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Address</label>
+                            <input type="text" id="editAddress" value="${store.address}" class="mt-1 w-full px-3 py-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">City</label>
+                            <input type="text" id="editCity" value="${store.city}" class="mt-1 w-full px-3 py-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Constituency</label>
+                            <input type="text" id="editConstituency" value="${store.constituency}" class="mt-1 w-full px-3 py-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="editEmail" value="${store.email}" class="mt-1 w-full px-3 py-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                            <input type="text" id="editPhoneNumber" value="${store.phoneNumber}" class="mt-1 w-full px-3 py-2 border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Image URL</label>
+                            <input type="text" id="editImageUrl" value="${store.imageUrl}" class="mt-1 w-full px-3 py-2 border rounded-lg">
+                        </div>
+                        <div class="flex justify-end gap-2">
+                            <button type="button" id="cancelEditStore" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg">Cancel</button>
+                            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            document.getElementById('closeEditStoreModal').onclick = () => modal.remove();
+            document.getElementById('cancelEditStore').onclick = () => modal.remove();
+            document.getElementById('editStoreForm').onsubmit = async function(e) {
+                e.preventDefault();
+                const updatedStore = {
+                    address: document.getElementById('editAddress').value,
+                    city: document.getElementById('editCity').value,
+                    constituency: document.getElementById('editConstituency').value,
+                    email: document.getElementById('editEmail').value,
+                    phoneNumber: document.getElementById('editPhoneNumber').value,
+                    imageUrl: document.getElementById('editImageUrl').value
+                };
+                try {
+                    const storeId = document.getElementById('editStoreId').value;
+                    const response = await fetch(`http://localhost:3000/api/stores/${storeId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updatedStore)
+                    });
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Failed to update store.');
+                    }
+                    modal.remove();
+                    renderStoreTable();
+                } catch (error) {
+                    alert('Error updating store: ' + error.message);
+                }
+            };
+        }
+
+        // Handler for edit button
+        async function handleEditStore(event) {
+            const storeId = event.target.dataset.id;
+            try {
+                const response = await fetch(`http://localhost:3000/api/stores/${storeId}`);
+                if (!response.ok) throw new Error('Failed to fetch store info');
+                const store = await response.json();
+                createEditStoreModal(store);
+            } catch (error) {
+                alert('Error loading store info: ' + error.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', renderStoreTable);
+    </script>
+</body>
+</html>

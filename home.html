@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riders Rentals - Your Journey Starts Here</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .hero-section {
+            /* Using a placeholder image, replace with your own if desired */
+            background-image: url('https://res.cloudinary.com/dmbqrwb7c/image/upload/v1753655054/car_banner_wj4rwc.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #4f46e5;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4 px-6 md:px-10 flex justify-between items-center">
+        <a href="#" class="text-2xl font-bold text-indigo-600">Riders Rentals</a>
+        <nav class="hidden md:flex space-x-6">
+            <a href="#" class="text-indigo-600 font-medium transition duration-150">Home</a>
+            <a href="cars.html" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-150">Cars</a>
+            <a href="store-locations.html" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-150">Locations</a>
+            <a href="about-us.html" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-150">About Us</a>
+            <a href="contact-us.html" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-150">Contact</a>
+        </nav>
+        <div class="hidden md:block">
+            <a href="index.html" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-150">Sign In</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-white py-20 md:py-32 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Your Journey Starts Here</h1>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Find the perfect car for your next adventure. Easy booking, great prices, reliable service.</p>
+            <a href="cars.html" class="bg-yellow-400 text-indigo-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-500 transition duration-300 shadow-lg">Browse Cars</a>
+        </div>
+    </section>
+
+    <!-- Search/Booking Form (Simplified) -->
+    <section class="bg-white shadow-lg rounded-xl p-6 md:p-8 mx-4 md:mx-auto max-w-5xl -mt-16 relative z-10">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Find Your Ride</h2>
+        <form class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <label for="pickup-location" class="block text-sm font-medium text-gray-700 mb-2">Pick-up Location</label>
+                <input type="text" id="pickup-location" placeholder="City, Airport, Address" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div>
+                <label for="pickup-date" class="block text-sm font-medium text-gray-700 mb-2">Pick-up Date</label>
+                <input type="date" id="pickup-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div>
+                <label for="return-date" class="block text-sm font-medium text-gray-700 mb-2">Return Date</label>
+                <input type="date" id="return-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div class="flex items-end">
+                <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-2.5 rounded-lg hover:bg-indigo-700 transition duration-150 font-semibold">Search Cars</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Featured Cars Section -->
+    <section id="featured-cars" class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Featured Cars</h2>
+        <div id="car-listings" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+            <p id="loadingCarsMessage" class="text-gray-500 text-center col-span-full">
+                <span class="loading-spinner"></span> Loading featured cars...
+            </p>
+            <p id="noCarsFoundMessage" class="text-gray-500 text-center col-span-full hidden">No featured cars found.</p>
+            <p id="errorLoadingCarsMessage" class="text-red-500 text-center col-span-full hidden">Error loading featured cars. Please ensure the backend is running.</p>
+            <!-- Car cards will be dynamically inserted here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="bg-indigo-700 text-white py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to hit the road?</h2>
+            <p class="text-lg mb-8 max-w-xl mx-auto">Book your perfect car today and enjoy a seamless rental experience.</p>
+            <a href="cars.html" class="bg-white text-indigo-700 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-200 transition duration-300 shadow-lg">Start Booking Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-8 px-6 md:px-10 text-center">
+        <div class="container mx-auto">
+            <p>&copy; 2025 Riders Rentals. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="hover:text-white transition duration-150">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition duration-150">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Function to shuffle an array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+            }
+            return array;
+        }
+
+        // Function to render a single car card
+        function renderCarCard(car) {
+            // Ensure properties exist, provide fallbacks if they might be missing from older data
+            const carType = car.type || 'N/A';
+            const seats = car.seats || 'N/A';
+            const transmission = car.transmission || 'N/A';
+            const featuresDisplay = car.features && car.features.length > 0 ? car.features.join(' • ') : '';
+
+            return `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-105">
+                    <img src="${car.imageUrl}" alt="${car.make} ${car.model}" class="w-full h-48 object-cover"
+                         onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/333333?text=Image+Unavailable';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">${car.make} ${car.model} (${car.year})</h3>
+                        <p class="text-gray-600 mb-4">
+                            ${carType} • ${seats} Seats • ${transmission} ${featuresDisplay ? ' • ' + featuresDisplay : ''}
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-indigo-600">$${car.pricePerDay}<span class="text-base text-gray-500">/day</span></span>
+                            <a href="book-now.html?carId=${car._id}" class="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition duration-150">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to fetch and display 6 random featured cars
+        const fetchFeaturedCars = async () => {
+            const carListingsDiv = document.getElementById('car-listings');
+            const loadingCarsMessage = document.getElementById('loadingCarsMessage');
+            const noCarsFoundMessage = document.getElementById('noCarsFoundMessage');
+            const errorLoadingCarsMessage = document.getElementById('errorLoadingCarsMessage');
+
+            loadingCarsMessage.classList.remove('hidden'); // Show loading
+            noCarsFoundMessage.classList.add('hidden');
+            errorLoadingCarsMessage.classList.add('hidden');
+            carListingsDiv.innerHTML = ''; // Clear existing content
+
+            try {
+                // IMPORTANT: Replace 'http://localhost:3000/api/cars' with your backend URL
+                const response = await fetch('http://localhost:3000/api/cars');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const allCars = await response.json();
+
+                loadingCarsMessage.classList.add('hidden'); // Hide loading
+
+                // Shuffle the array and take the first 6 cars
+                const shuffledCars = shuffleArray([...allCars]); // Create a copy to avoid mutating original
+                const featuredCars = shuffledCars.slice(0, 6);
+
+                if (featuredCars.length === 0) {
+                    noCarsFoundMessage.classList.remove('hidden');
+                } else {
+                    featuredCars.forEach(car => {
+                        carListingsDiv.innerHTML += renderCarCard(car);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching featured cars:', error);
+                loadingCarsMessage.classList.add('hidden');
+                errorLoadingCarsMessage.classList.remove('hidden');
+                errorLoadingCarsMessage.textContent = `Error loading featured cars: ${error.message}. Please ensure the backend server is running.`;
+            }
+        };
+
+        // Call fetchFeaturedCars when the page loads
+        document.addEventListener('DOMContentLoaded', fetchFeaturedCars);
+    </script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riders Rentals - Our Cars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #4f46e5;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar-hidden {
+            transform: translateX(100%);
+        }
+        .banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-md py-4 px-6 md:px-10 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="home.html" class="text-2xl font-bold text-indigo-600">Riders Rentals</a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="home.html" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-200">Home</a>
+                <a href="cars.html" class="text-indigo-600 font-semibold border-b-2 border-indigo-600">Cars</a>
+                <a href="store-locations.html" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-200">Locations</a>
+                <a href="about-us.html" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-200">About Us</a>
+                <a href="contact-us.html" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-200">Contact</a>
+            </nav>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="login.html" class="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition duration-200 font-medium">Sign In</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                <svg class="w-6 h-6" fill="none" in="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Sidebar -->
+        <div id="mobile-sidebar" class="fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 p-6 sidebar sidebar-hidden md:hidden">
+            <button id="close-sidebar-btn" class="absolute top-4 right-4 text-gray-600 hover:text-gray-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <nav class="flex flex-col space-y-4 mt-8">
+                <a href="home.html" class="text-gray-600 hover:text-indigo-600 font-medium">Home</a>
+                <a href="cars.html" class="text-indigo-600 font-semibold">Cars</a>
+                <a href="store-locations.html" class="text-gray-600 hover:text-indigo-600 font-medium">Locations</a>
+                <a href="about-us.html" class="text-gray-600 hover:text-indigo-600 font-medium">About Us</a>
+                <a href="contact-us.html" class="text-gray-600 hover:text-indigo-600 font-medium">Contact</a>
+                <a href="login.html" class="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 font-medium text-center">Sign In</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner Section -->
+    <section class="banner h-96 flex items-center justify-center text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Find Your Perfect Ride</h1>
+            <p class="text-lg text-gray-200 mb-6 max-w-2xl mx-auto">Explore our premium selection of vehicles for your next adventure.</p>
+            <a href="index.html" class="bg-indigo-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-lg">Browse Cars</a>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="bg-gray-100 py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <h2 class="text-3xl font-bold text-gray-800">Our Car Listings</h2>
+                <div class="flex gap-4">
+                    <select id="typeFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="">All Types</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Truck">Truck</option>
+                        <option value="Luxury">Luxury</option>
+                        <option value="Sport">Sport</option>
+                        <option value="Electric">Electric</option>
+                    </select>
+                    <select id="sortFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="priceAsc">Price: Low to High</option>
+                        <option value="priceDesc">Price: High to Low</option>
+                        <option value="yearDesc">Year: Newest First</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Car Listings Section -->
+    <section id="car-listings-section" class="container mx-auto px-4 py-12">
+        <div id="car-listings" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <p id="loadingCarsMessage" class="text-gray-500 text-center col-span-full flex items-center justify-center">
+                <span class="loading-spinner"></span> Loading cars...
+            </p>
+            <p id="noCarsFoundMessage" class="text-gray-500 text-center col-span-full hidden">No cars found.</p>
+            <p id="errorLoadingCarsMessage" class="text-red-600 text-center col-span-full hidden font-medium">Error loading cars. Please ensure the backend is running.</p>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Hit the Road?</h2>
+            <p class="text-lg mb-8 max-w-2xl mx-auto">Choose from our wide range of vehicles and start your journey with Riders Rentals today!</p>
+            <a href="book-now.html" class="bg-white text-indigo-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg">Book Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-200 py-12 px-6 md:px-10">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Riders Rentals</h3>
+                <p class="text-gray-400">Your trusted partner for car rentals. Explore our fleet and book your perfect ride today.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="home.html" class="hover:text-indigo-400 transition duration-200">Home</a></li>
+                    <li><a href="cars.html" class="hover:text-indigo-400 transition duration-200">Cars</a></li>
+                    <li><a href="store-locations.html" class="hover:text-indigo-400 transition duration-200">Locations</a></li>
+                    <li><a href="about-us.html" class="hover:text-indigo-400 transition duration-200">About Us</a></li>
+                    <li><a href="contact-us.html" class="hover:text-indigo-400 transition duration-200">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-center text-gray-400">
+            <p>&copy; 2025 Riders Rentals. All rights reserved. | <a href="#" class="hover:text-indigo-400">Privacy Policy</a> | <a href="#" class="hover:text-indigo-400">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to render a single car card
+        function renderCarCard(car) {
+            const carType = car.type || 'N/A';
+            const seats = car.seats || 'N/A';
+            const transmission = car.transmission || 'N/A';
+            const featuresDisplay = car.features && car.features.length > 0 ? car.features.join(' • ') : '';
+
+            return `
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:shadow-xl">
+                    <img src="${car.imageUrl}" alt="${car.make} ${car.model}" class="w-full h-56 object-cover"
+                         onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/333333?text=Image+Unavailable';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">${car.make} ${car.model} (${car.year})</h3>
+                        <div class="text-gray-600 mb-4 text-sm">
+                            <p><span class="font-medium">Type:</span> ${carType}</p>
+                            <p><span class="font-medium">Seats:</span> ${seats}</p>
+                            <p><span class="font-medium">Transmission:</span> ${transmission}</p>
+                            ${featuresDisplay ? `<p><span class="font-medium">Features:</span> ${featuresDisplay}</p>` : ''}
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-indigo-600">$${car.pricePerDay}<span class="text-base text-gray-500">/day</span></span>
+                            <a href="book-now.html?carId=${car._id}" class="book-now-btn bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition duration-200 font-medium">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to fetch and display cars
+        async function displayCars(typeFilter = '', sortFilter = 'priceAsc') {
+            const carListingsDiv = document.getElementById('car-listings');
+            const loadingCarsMessage = document.getElementById('loadingCarsMessage');
+            const noCarsFoundMessage = document.getElementById('noCarsFoundMessage');
+            const errorLoadingCarsMessage = document.getElementById('errorLoadingCarsMessage');
+
+            loadingCarsMessage.classList.remove('hidden');
+            noCarsFoundMessage.classList.add('hidden');
+            errorLoadingCarsMessage.classList.add('hidden');
+            carListingsDiv.innerHTML = '';
+
+            try {
+                const response = await fetch('http://localhost:3000/api/cars');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Response is not JSON');
+                }
+                let cars = await response.json();
+
+                // Apply type filter
+                if (typeFilter) {
+                    cars = cars.filter(car => car.type === typeFilter);
+                }
+
+                // Apply sorting
+                if (sortFilter === 'priceAsc') {
+                    cars.sort((a, b) => a.pricePerDay - b.pricePerDay);
+                } else if (sortFilter === 'priceDesc') {
+                    cars.sort((a, b) => b.pricePerDay - a.pricePerDay);
+                } else if (sortFilter === 'yearDesc') {
+                    cars.sort((a, b) => b.year - a.year);
+                }
+
+                loadingCarsMessage.classList.add('hidden');
+
+                if (cars.length === 0) {
+                    noCarsFoundMessage.classList.remove('hidden');
+                } else {
+                    cars.forEach(car => {
+                        carListingsDiv.innerHTML += renderCarCard(car);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching cars:', error);
+                loadingCarsMessage.classList.add('hidden');
+                errorLoadingCarsMessage.classList.remove('hidden');
+                errorLoadingCarsMessage.textContent = `Error loading cars: ${error.message}. Please ensure the backend server is running.`;
+            }
+        }
+
+        // Toggle mobile sidebar
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-sidebar').classList.remove('sidebar-hidden');
+        });
+        document.getElementById('close-sidebar-btn').addEventListener('click', () => {
+            document.getElementById('mobile-sidebar').classList.add('sidebar-hidden');
+        });
+
+        // Filter and sort event listeners
+        document.getElementById('typeFilter').addEventListener('change', () => {
+            const typeFilter = document.getElementById('typeFilter').value;
+            const sortFilter = document.getElementById('sortFilter').value;
+            displayCars(typeFilter, sortFilter);
+        });
+        document.getElementById('sortFilter').addEventListener('change', () => {
+            const typeFilter = document.getElementById('typeFilter').value;
+            const sortFilter = document.getElementById('sortFilter').value;
+            displayCars(typeFilter, sortFilter);
+        });
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            displayCars();
+        });
+    </script>
+</body>
+</html>

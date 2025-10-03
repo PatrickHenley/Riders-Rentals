@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riders Rentals - Contact Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar-hidden {
+            transform: translateX(100%);
+        }
+        .banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1449960238630-7e720e630019?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-md py-4 px-6 md:px-10 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="home.html" class="text-2xl font-bold text-indigo-600">Riders Rentals</a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="home.html" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-200">Home</a>
+                <a href="cars.html" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-200">Cars</a>
+                <a href="store-locations.html" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-200">Locations</a>
+                <a href="about-us.html" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-200">About Us</a>
+                <a href="contact-us.html" class="text-indigo-600 font-semibold border-b-2 border-indigo-600">Contact</a>
+            </nav>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="login.html" class="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition duration-200 font-medium">Sign In</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Sidebar -->
+        <div id="mobile-sidebar" class="fixed inset-y-0 right-0 w-64 bg-white shadow-lg z-50 p-6 sidebar sidebar-hidden md:hidden">
+            <button id="close-sidebar-btn" class="absolute top-4 right-4 text-gray-600 hover:text-gray-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <nav class="flex flex-col space-y-4 mt-8">
+                <a href="home.html" class="text-gray-600 hover:text-indigo-600 font-medium">Home</a>
+                <a href="cars.html" class="text-gray-600 hover:text-indigo-600 font-medium">Cars</a>
+                <a href="store-locations.html" class="text-gray-600 hover:text-indigo-600 font-medium">Locations</a>
+                <a href="about.html" class="text-gray-600 hover:text-indigo-600 font-medium">About Us</a>
+                <a href="contact.html" class="text-indigo-600 font-semibold">Contact</a>
+                <a href="login.html" class="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 font-medium text-center">Sign In</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner Section -->
+    <section class="banner h-96 flex items-center justify-center text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Get in Touch</h1>
+            <p class="text-lg text-gray-200 mb-6 max-w-2xl mx-auto">We’re here to help! Contact us with any questions or to start your rental journey.</p>
+            <a href="#contact-form" class="bg-indigo-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-lg">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="container mx-auto px-4 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div id="contact-form" class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="name" name="name" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="john@example.com">
+                    </div>
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                        <input type="text" id="subject" name="subject" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="E.g., Rental Inquiry">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                        <textarea id="message" name="message" required rows="5" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Your message here..."></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-200 font-medium">Send Message</button>
+                    </div>
+                    <p id="formError" class="text-red-600 text-center hidden">Failed to send message. Please try again.</p>
+                </form>
+            </div>
+            <!-- Contact Details -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h2>
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-2xl text-indigo-600 mr-4 mt-1"></i>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Address</h3>
+                            <p class="text-gray-600">123 Main Street, Suite 100<br>St. Clair, Port of Spain, Trinidad and Tobago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-phone text-2xl text-indigo-600 mr-4 mt-1"></i>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Phone</h3>
+                            <p class="text-gray-600"><a href="tel:+18001234567" class="hover:text-indigo-600">+1 (800) 123-4567</a></p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-envelope text-2xl text-indigo-600 mr-4 mt-1"></i>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Email</h3>
+                            <p class="text-gray-600"><a href="mailto:support@ridersrentals.com" class="hover:text-indigo-600">support@ridersrentals.com</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pop-up Modal -->
+    <div id="successModal" class="modal fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full text-center">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Message Sent</h3>
+            <p class="text-gray-600 mb-6">Thank you for contacting Riders Rentals! We'll get back to you soon.</p>
+            <button id="closeModal" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-200 font-medium">Close</button>
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <section class="bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
+            <p class="text-lg mb-8 max-w-2xl mx-auto">Book your perfect car today and hit the road with Riders Rentals!</p>
+            <a href="book-now.html" class="bg-white text-indigo-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-lg">Book Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-200 py-12 px-6 md:px-10">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Riders Rentals</h3>
+                <p class="text-gray-400">Your trusted partner for car rentals. Explore our fleet and book your perfect ride today.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="home.html" class="hover:text-indigo-400 transition duration-200">Home</a></li>
+                    <li><a href="cars.html" class="hover:text-indigo-400 transition duration-200">Cars</a></li>
+                    <li><a href="store-locations.html" class="hover:text-indigo-400 transition duration-200">Locations</a></li>
+                    <li><a href="about.html" class="hover:text-indigo-400 transition duration-200">About Us</a></li>
+                    <li><a href="contact.html" class="hover:text-indigo-400 transition duration-200">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-center text-gray-400">
+            <p>&copy; 2025 Riders Rentals. All rights reserved. | <a href="#" class="hover:text-indigo-400">Privacy Policy</a> | <a href="#" class="hover:text-indigo-400">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle mobile sidebar
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-sidebar').classList.remove('sidebar-hidden');
+        });
+        document.getElementById('close-sidebar-btn').addEventListener('click', () => {
+            document.getElementById('mobile-sidebar').classList.add('sidebar-hidden');
+        });
+
+        // Contact form submission with pop-up
+        document.getElementById('contactForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formError = document.getElementById('formError');
+            const successModal = document.getElementById('successModal');
+            formError.classList.add('hidden');
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            try {
+                // Placeholder for backend API call
+                // const response = await fetch('http://localhost:3000/api/contact', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(formData)
+                // });
+                // if (!response.ok) throw new Error('Failed to send message');
+                // const result = await response.json();
+
+                // Simulate successful submission
+                console.log('Form data:', formData);
+                document.getElementById('contactForm').reset();
+                successModal.classList.add('show');
+                setTimeout(() => {
+                    successModal.classList.remove('show');
+                }, 3000);
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                formError.textContent = `Failed to send message: ${error.message}`;
+                formError.classList.remove('hidden');
+            }
+        });
+
+        // Close modal button
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('successModal').classList.remove('show');
+        });
+    </script>
+</body>
+</html>
